@@ -11,10 +11,9 @@ import { TasksService } from '../tasks.service';
 })
 export class NewTaskComponent {
   private formEl = viewChild<ElementRef<HTMLFormElement>>('form');
-  private taskService  = inject(TasksService) //DI step 1
+  // private taskService  = inject(TasksService) //DI step 1
 
-  constructor() {
-  // this.taskService  = new TasksService(); // how not to do it
+  constructor(private taskService: TasksService) {  //DI step 2
   }
   onAddTask(title: string, description: string) {
     this.taskService.addTask({title, description})

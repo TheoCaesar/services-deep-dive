@@ -5,14 +5,18 @@ import { type Task } from "./task.model";
     providedIn: "root", // support DI anywhere in apk
 })
 export class TasksService{
-    tasks = signal<Task[]>([]);
+    private tasks = signal<Task[]>([]);
+    allTasks = this.tasks.asReadonly()
 
     addTask(data: {title:string, description:string}){
         let newTask: Task = {
             ...data,
-            id: (Math.random() * 1000).toString(),
+            id: Math.round((Math.random() * 1000)).toString(),
             status: 'OPEN',
         }
+        console.log(newTask);
+        
         this.tasks.update((oldTasks)=>[...oldTasks,newTask ])
+        console.log(this.tasks())
     }
 }
