@@ -1,28 +1,28 @@
-import { Injectable, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { TaskStatus, type Task } from "./task.model";
+import { LoggingService } from "../logging.service";
 
-// @Injectable({
-//     providedIn: "root", // support DI anywhere in apk
-// })
+@Injectable({
+    providedIn: "root", // support DI anywhere in apk
+})
 export class TasksService{
     private tasks = signal<Task[]>([]);
-    allTasks = this.tasks.asReadonly()
-
+    allTasks = this.tasks.asReadonly();
+    logService = inject(LoggingService);
     addTask(data: {title:string, description:string}){
         let newTask: Task = {
             ...data,
             id: Math.round((Math.random() * 1000)).toString(),
             status: 'OPEN',
-        }
-        console.log(newTask);
-        
+        }        
         this.tasks.update((oldTasks)=>[...oldTasks,newTask ])
-        console.log(this.tasks())
+        this.logService.log(`Task Added Successfuly\n${newTask} `)
     }
     
   onUpdateTaskStatus(taskId:string, newStatus:TaskStatus){
     this.tasks.update((oldTasks)=>oldTasks.map(
         (task)=> task.id===taskId ? {...task, status:newStatus} : task 
     ))
+    this.logService.log(`Task Status Updated to ${newStatus}...`)
   }
 }
