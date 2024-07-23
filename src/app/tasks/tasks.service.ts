@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { type Task } from "./task.model";
+import { TaskStatus, type Task } from "./task.model";
 
 @Injectable({
     providedIn: "root", // support DI anywhere in apk
@@ -19,4 +19,10 @@ export class TasksService{
         this.tasks.update((oldTasks)=>[...oldTasks,newTask ])
         console.log(this.tasks())
     }
+    
+  onUpdateTaskStatus(taskId:string, newStatus:TaskStatus){
+    this.tasks.update((oldTasks)=>oldTasks.map(
+        (task)=> task.id===taskId ? {...task, status:newStatus} : task 
+    ))
+  }
 }

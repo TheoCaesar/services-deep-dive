@@ -3,6 +3,7 @@ article {
   padding: 1rem;
   border-radius: 4px;
   border-left: 8px solid transparent;
+  color: #000;
 }
 
 .status-open {
