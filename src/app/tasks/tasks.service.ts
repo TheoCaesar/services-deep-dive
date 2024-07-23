@@ -1,9 +1,9 @@
 import { Injectable, signal } from "@angular/core";
 import { TaskStatus, type Task } from "./task.model";
 
-@Injectable({
-    providedIn: "root", // support DI anywhere in apk
-})
+// @Injectable({
+//     providedIn: "root", // support DI anywhere in apk
+// })
 export class TasksService{
     private tasks = signal<Task[]>([]);
     allTasks = this.tasks.asReadonly()
