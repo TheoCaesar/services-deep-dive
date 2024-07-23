@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { TaskStatus, type Task } from "./task.model";
 import { LoggingService } from "../logging.service";
+import { LogServiceToken } from "../../main";
 
 @Injectable({
     providedIn: "root", // support DI anywhere in apk
@@ -8,7 +9,9 @@ import { LoggingService } from "../logging.service";
 export class TasksService{
     private tasks = signal<Task[]>([]);
     allTasks = this.tasks.asReadonly();
-    logService = inject(LoggingService);
+    // logService = inject(LoggingService);
+    logService = inject(LogServiceToken);
+    
     addTask(data: {title:string, description:string}){
         let newTask: Task = {
             ...data,
