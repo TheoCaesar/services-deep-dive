@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Task, TaskStatus } from '../../task.model';
+import { Task, TASK_STATUS_OPTS, TaskStatus } from '../../task.model';
 import { TasksService } from '../../tasks.service';
 
 @Component({
@@ -13,6 +13,7 @@ import { TasksService } from '../../tasks.service';
 })
 export class TaskItemComponent {
   task = input.required<Task>();
+  getTaskStatusOpts = inject(TASK_STATUS_OPTS)
   taskStatus = computed(() => {
     switch (this.task().status) {
       case 'OPEN':
